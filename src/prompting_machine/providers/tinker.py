@@ -15,7 +15,7 @@ def respond(messages=None, instructions=None, tools=None, **kwargs):
     """ They don't have responses, emulation through chat completions.
     """
     api_key = environ.get("TINKER_API_KEY", '')
-    default_model = environ.get("TINKER_DEFAULT_MODEL", 'thinkingmachines/Inkling')
+    default_model = environ.get("TINKER_DEFAULT_MODEL", 'thinkingmachines/Inkling:peft:262144')
     api_base = environ.get("TINKER_OAI_API_BASE", 'https://tinker.thinkingmachines.dev/services/tinker-prod/oai/api/v1')
 
     # Set the mandatory headers
@@ -39,7 +39,7 @@ def respond(messages=None, instructions=None, tools=None, **kwargs):
         'messages': instruction_and_contents,
         # 'response_format':          kwargs.get('response_format',{'type': 'text'}),
         'temperature': kwargs.get('temperature', 1),  # 0.0 to 2.0
-        'max_tokens': kwargs.get('max_tokens', 4096),
+        'max_tokens': kwargs.get('max_tokens', 256000),
         'n': kwargs.get('n', 1),
         'top_p': kwargs.get('top_p', 0.9),
         'separate_reasoning': True,
